@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>RYB Palette – Démo interactive</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="i18n.css" />
+  <link rel="stylesheet" href="colorpicker.css" />
+</head>
+<body>
+  <header>
+    <h1 id="t-title">🎨 RYB Palette</h1>
+    <p id="t-sub">Generating painter-style color palettes using the RYB color wheel.</p>
+
+    <div class="lang-switch">
+      <button data-lang="en">EN</button>
+      <button data-lang="fr">FR</button>
+    </div>
+
+    <div class="controls">
+      <label id="t-color-label">Color:
+        <div id="colorPicker">
+          <input type="color" id="colorHex" value="#1e90ff">
+
+          <div class="color-sliders">
+            <div><label>H</label><input type="range" id="h" min="0" max="360" value="210"></div>
+            <div><label>S</label><input type="range" id="s" min="0" max="100" value="100"></div>
+            <div><label>L</label><input type="range" id="l" min="0" max="100" value="50"></div>
+          </div>
+
+          <div class="color-sliders">
+            <div><label>R</label><input type="range" id="r" min="0" max="255" value="30"></div>
+            <div><label>G</label><input type="range" id="g" min="0" max="255" value="144"></div>
+            <div><label>B</label><input type="range" id="b" min="0" max="255" value="255"></div>
+          </div>
+        </div>
+
+      </label>
+      <label id="t-rot-label">RYB rotation:
+        <input type="range" id="rot" min="0" max="360" value="180" />
+        <span id="rotVal">180°</span>
+      </label>
+      <button id="gen" data-text="generate">Generate</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="preview">
+      <h2>Exemple typographique</h2>
+      <article id="lorem">
+        <h3>Titre d’exemple</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer accumsan, est non interdum cursus, arcu nisi luctus elit.</p>
+        <p style="font-size:.9rem;color:#444">Les variables CSS produites sont utilisées pour colorer le texte et les fonds dans cet exemple.</p>
+      </article>
+    </section>
+
+    <section class="palette">
+      <h2>Palette générée</h2>
+      <div class="palette-grid">
+        <div>
+          <h3>Couleur principale</h3>
+          <div id="mainPalette" class="swatches"></div>
+        </div>
+        <div>
+          <h3>Complémentaire RYB</h3>
+          <div id="complPalette" class="swatches"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="vars">
+      <h2>Variables CSS</h2>
+      <div id="varList"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Implémentation JS de l’algorithme <em>spin_ryb</em> inspiré de l’article original de Stéphane Mourey. | MIT License</p>
+  </footer>
+
+  <script src="main.js"></script>
+  <script src="i18n.js"></script>
+  <script src="colorpicker.js"></script>
+</body>
+</html>

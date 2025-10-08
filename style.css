@@ -1,0 +1,88 @@
+:root {
+  --main: hsl(200 80% 50%);
+  color-scheme: light;
+}
+
+* { box-sizing: border-box }
+body {
+  font-family: system-ui, sans-serif;
+  background: #f6f6f7;
+  color: #111;
+  margin: 0;
+  padding: 1rem;
+}
+
+header {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  margin-bottom: 1rem;
+}
+
+.controls {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+button {
+  background: #111;
+  color: #fff;
+  border: 0;
+  border-radius: 6px;
+  padding: .5rem .8rem;
+  cursor: pointer;
+}
+
+h1, h2, h3 { margin: .3rem 0 }
+main { display: flex; flex-direction: column; gap: 1.5rem }
+.preview, .palette, .vars {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.05);
+}
+
+#lorem {
+  border-radius: 8px;
+  padding: 1rem;
+  transition: background .3s, color .3s;
+}
+
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px,1fr));
+  gap: .4rem;
+}
+
+.swatch {
+  border-radius: 6px;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: monospace;
+  font-size: .8rem;
+  color: #000;
+}
+
+.var-row {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin: .3rem 0;
+}
+
+.var-sample {
+  width: 36px;
+  height: 24px;
+  border-radius: 4px;
+}
+
+footer {
+  text-align: center;
+  font-size: .8rem;
+  color: #555;
+  margin-top: 1rem;
+}
