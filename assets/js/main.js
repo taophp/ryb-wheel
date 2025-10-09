@@ -79,7 +79,7 @@ function spin_ryb(h, amount) {
 
 
 function makePalette(h,s,l){
-  const steps = [50,100,200,300,400,500,600,700,800,900]
+  const steps = [50,100,200,300,400,500,600,700,800,900,950]
   const vars = {}
   steps.forEach(st=>{
     const delta = (st-500)/10
