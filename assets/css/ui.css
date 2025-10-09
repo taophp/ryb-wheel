@@ -1,0 +1,61 @@
+#colorUI {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,.05);
+}
+
+.picker-row {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+#colorHex {
+  width: 6rem;
+  font-family: monospace;
+  text-transform: lowercase;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: .2rem .4rem;
+}
+
+#colorNative {
+  width: 3rem;
+  height: 2rem;
+  border: none;
+  padding: 0;
+}
+
+.picker-block h4 {
+  margin: 0 0 .3rem 0;
+  font-size: .9rem;
+  color: #555;
+}
+
+.picker-slider {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  margin: .2rem 0;
+}
+
+.picker-slider label {
+  width: 1rem;
+  font-weight: bold;
+}
+
+.picker-slider input[type=range] {
+  flex: 1;
+}
+
+.picker-slider input[type=number] {
+  width: 4rem;
+  font-family: monospace;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: .1rem .3rem;
+}

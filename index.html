@@ -4,9 +4,14 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>RYB Palette – Démo interactive</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="i18n.css" />
-  <link rel="stylesheet" href="colorpicker.css" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="stylesheet" href="assets/css/i18n.css" />
+  <link rel="stylesheet" href="assets/css/colorpicker.css" />
+  <link rel="stylesheet" href="assets/css/ui.css" />
+  <script defer src="assets/js/main.js"></script>
+  <script defer src="assets/js/i18n.js"></script>
+  <script defer src="assets/js/colorpicker.js"></script>
+  <script defer src="assets/js/ui.js"></script>
 </head>
 <body>
   <header>
@@ -20,19 +25,28 @@
 
     <div class="controls">
       <label id="t-color-label">Color:
-        <div id="colorPicker">
-          <input type="color" id="colorHex" value="#1e90ff">
-
-          <div class="color-sliders">
-            <div><label>H</label><input type="range" id="h" min="0" max="360" value="210"></div>
-            <div><label>S</label><input type="range" id="s" min="0" max="100" value="100"></div>
-            <div><label>L</label><input type="range" id="l" min="0" max="100" value="50"></div>
+        <div id="colorUI">
+          <div class="picker-row">
+            <label for="colorHex">#</label>
+            <input type="text" id="colorHex" value="#1e90ff" maxlength="7">
+            <input type="color" id="colorNative" value="#1e90ff">
           </div>
 
-          <div class="color-sliders">
-            <div><label>R</label><input type="range" id="r" min="0" max="255" value="30"></div>
-            <div><label>G</label><input type="range" id="g" min="0" max="255" value="144"></div>
-            <div><label>B</label><input type="range" id="b" min="0" max="255" value="255"></div>
+          <canvas id="rybWheel" width="256" height="256"></canvas>
+
+
+          <div class="picker-block">
+            <h4>HSL</h4>
+            <div class="picker-slider"><label>H</label><input type="range" id="h" min="0" max="360"><input type="number" id="hVal" min="0" max="360"></div>
+            <div class="picker-slider"><label>S</label><input type="range" id="s" min="0" max="100"><input type="number" id="sVal" min="0" max="100"></div>
+            <div class="picker-slider"><label>L</label><input type="range" id="l" min="0" max="100"><input type="number" id="lVal" min="0" max="100"></div>
+          </div>
+
+          <div class="picker-block">
+            <h4>RGB</h4>
+            <div class="picker-slider"><label>R</label><input type="range" id="r" min="0" max="255"><input type="number" id="rVal" min="0" max="255"></div>
+            <div class="picker-slider"><label>G</label><input type="range" id="g" min="0" max="255"><input type="number" id="gVal" min="0" max="255"></div>
+            <div class="picker-slider"><label>B</label><input type="range" id="b" min="0" max="255"><input type="number" id="bVal" min="0" max="255"></div>
           </div>
         </div>
 
@@ -79,8 +93,5 @@
     <p>Implémentation JS de l’algorithme <em>spin_ryb</em> inspiré de l’article original de Stéphane Mourey. | MIT License</p>
   </footer>
 
-  <script src="main.js"></script>
-  <script src="i18n.js"></script>
-  <script src="colorpicker.js"></script>
 </body>
 </html>

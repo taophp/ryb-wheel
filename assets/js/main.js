@@ -29,32 +29,54 @@ function rgbToHsl(r, g, b) {
   return [h, s * 100, l * 100]
 }
 
-function spin_ryb(h, amount) {
-  const clamp = (x,a,b)=>Math.min(Math.max(x,a),b)
-  const interp = (a,b,t)=>a+(b-a)*t
-  const findSeg = h => {
-    for (let i=0;i<wheel.length-1;i++){
-      const [x1]=wheel[i],[x2]=wheel[i+1]
-      if (h>=x1 && h<=x2) return i
-    }
-    return wheel.length-2
-  }
-  h = ((h%360)+360)%360
-  let i = findSeg(h)
-  const [h1,ryb1] = wheel[i], [h2,ryb2] = wheel[i+1]
-  const t = (h - h1) / (h2 - h1 || 1)
-  let a = interp(ryb1, ryb2, t)
-  a = (a + amount + 360) % 360
-  let j
-  for (j=0;j<wheel.length-1;j++){
-    const [r1]=wheel[j],[r2]=wheel[j+1]
-    if (a>=r1 && a<=r2) break
-  }
-  const [r1,ry1]=wheel[j],[r2,ry2]=wheel[j+1]
-  const tt = (a - ry1) / (ry2 - ry1 || 1)
-  const newHue = interp(r1, r2, tt)
-  return ((newHue%360)+360)%360
+// smooth monotone spline interpolation (Hermite variant)
+function splineInterp(x, xs, ys) {
+  const n = xs.length;
+  if (x <= xs[0]) return ys[0];
+  if (x >= xs[n - 1]) return ys[n - 1];
+  let i = 1;
+  while (x > xs[i]) i++;
+  const x0 = xs[i - 1], x1 = xs[i];
+  const y0 = ys[i - 1], y1 = ys[i];
+  const t = (x - x0) / (x1 - x0);
+  const d0 = (i > 1) ? (ys[i] - ys[i - 2]) / (xs[i] - xs[i - 2]) : (y1 - y0) / (x1 - x0);
+  const d1 = (i < n - 1) ? (ys[i + 1] - ys[i - 1]) / (xs[i + 1] - xs[i - 1]) : (y1 - y0) / (x1 - x0);
+  const t2 = t * t, t3 = t2 * t;
+  const h00 = 2 * t3 - 3 * t2 + 1;
+  const h10 = t3 - 2 * t2 + t;
+  const h01 = -2 * t3 + 3 * t2;
+  const h11 = t3 - t2;
+  return h00 * y0 + h10 * d0 * (x1 - x0) + h01 * y1 + h11 * d1 * (x1 - x0);
 }
+
+// main RYB rotation using continuous spline mapping
+function spin_ryb(h, amount) {
+  const wheel = [
+    [0, 0], [22, 30], [33, 60], [47, 90],
+    [60, 120], [78, 150], [120, 180],
+    [192, 210], [240, 240], [360, 360]
+  ];
+
+  const xs = wheel.map(([hsl]) => hsl);
+  const ys = wheel.map(([, ryb]) => ryb);
+
+  // normalize input hue 0–360
+  h = ((h % 360) + 360) % 360;
+
+  // forward transform (HSL→RYB)
+  const ryb = splineInterp(h, xs, ys);
+
+  // apply rotation
+  let newRyb = (ryb + amount + 360) % 360;
+
+  // inverse transform (RYB→HSL)
+  const invXs = ys;
+  const invYs = xs;
+  const newHue = splineInterp(newRyb, invXs, invYs);
+
+  return ((newHue % 360) + 360) % 360;
+}
+
 
 function makePalette(h,s,l){
   const steps = [50,100,200,300,400,500,600,700,800,900]
