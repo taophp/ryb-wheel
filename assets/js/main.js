@@ -151,19 +151,41 @@ function applyToLorem(){
 
 function generate(){
   const hex=document.getElementById('colorHex').value
-  const rot=Number(document.getElementById('rot').value)
-  const [r,g,b]=hexToRgb(hex)
-  const [h,s,l]=rgbToHsl(r,g,b)
-  const vars=makePalette(h,s,l)
-  const compl=genComplement(h,s,l,rot)
+  const rot=180
+  const [r,g,b]=hexToRgb(hex);
+  const [h,s,l]=rgbToHsl(r,g,b);
+  const vars = generateSchemes(h,s,l);
+  const compl=genComplement(h,s,l,180)
   updateVars(vars,compl)
   renderPalette(vars,compl[0])
   listVars(vars,compl)
   applyToLorem()
 }
 
-document.getElementById('gen').onclick=generate
-document.getElementById('rot').oninput=e=>{
-  document.getElementById('rotVal').textContent=e.target.value+'°'
+function generateSchemes(h, s, l) {
+  const defs = {
+    'main': 0,
+    'compl': 180,
+    'main+adj': 30,
+    'main-adj': -30,
+    'compl+adj': 210,  // 180+30
+    'compl-adj': 150,  // 180-30
+    'main+triad': 60,
+    'main-triad': -60,
+    'main+rect': 60,
+    'main-rect': -60,
+    'compl+rect': 240, // 180+60
+    'compl-rect': 120  // 180-60
+  };
+  const vars = {};
+  for (const k in defs) {
+    const rot = defs[k];
+    const newHue = spin_ryb(h, rot);
+    vars[`--${k}`] = `hsl(${newHue} ${s}% ${l}%)`;
+  }
+  return vars;
 }
+
+document.getElementById('gen').onclick=generate
+
 window.onload=generate

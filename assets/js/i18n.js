@@ -37,7 +37,6 @@ function setLang(lang) {
   document.getElementById('t-title').textContent = t.title
   document.getElementById('t-sub').textContent = t.sub
   document.getElementById('t-color-label').childNodes[0].textContent = t.colorLabel + ' '
-  document.getElementById('t-rot-label').childNodes[0].textContent = t.rotLabel + ' '
   document.getElementById('gen').textContent = t.generate
   const h3 = document.querySelector('#lorem h3')
   const ps = document.querySelectorAll('#lorem p')
