@@ -1,9 +1,3 @@
-const wheel = [
-  [0, 0], [22, 30], [33, 60], [47, 90],
-  [60, 120], [78, 150], [120, 180],
-  [192, 210], [240, 240], [360, 360]
-]
-
 function hexToRgb(hex) {
   hex = hex.replace('#', '')
   if (hex.length === 3) hex = hex.split('').map(c => c + c).join('')
