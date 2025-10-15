@@ -72,33 +72,14 @@ function spin_ryb(h, amount) {
 }
 
 
-function makePalette(h,s,l){
-  const steps = [50,100,200,300,400,500,600,700,800,900,950]
-  const vars = {}
-  steps.forEach(st=>{
-    const delta = (st-500)/10
-    const nl = Math.max(0,Math.min(100,l - delta))
-    vars[`--main-${st}`] = `hsl(${h} ${s}% ${nl}%)`
-  })
-  return vars
-}
-
-function genComplement(h,s,l,rot){
-  const nh = spin_ryb(h,rot)
-  return [nh,s,l]
-}
-
-function updateVars(vars, compl){
+function updateVars(vars){
   const root = document.documentElement
   for(const k in vars) root.style.setProperty(k, vars[k])
-  root.style.setProperty('--main', vars['--main-500'])
-  root.style.setProperty('--compl-500', `hsl(${compl[0]} ${compl[1]}% ${compl[2]}%)`)
 }
 
-function renderPalette(vars, complHue){
+function renderPalette(vars){
   const mp = document.getElementById('mainPalette')
-  const cp = document.getElementById('complPalette')
-  mp.innerHTML=''; cp.innerHTML=''
+  mp.innerHTML='';
   for(const k in vars){
     const div=document.createElement('div')
     div.className='swatch'
@@ -107,13 +88,9 @@ function renderPalette(vars, complHue){
     mp.appendChild(div)
   }
   const div=document.createElement('div')
-  div.className='swatch'
-  div.textContent='compl'
-  div.style.background=`hsl(${complHue} 80% 50%)`
-  cp.appendChild(div)
 }
 
-function listVars(vars, compl){
+function listVars(vars){
   const box=document.getElementById('varList')
   box.innerHTML=''
   for(const k in vars){
@@ -126,14 +103,6 @@ function listVars(vars, compl){
     row.append(k+': '+vars[k])
     box.appendChild(row)
   }
-  const row=document.createElement('div')
-  row.className='var-row'
-  const s=document.createElement('div')
-  s.className='var-sample'
-  s.style.background=`hsl(${compl[0]} ${compl[1]}% ${compl[2]}%)`
-  row.appendChild(s)
-  row.append('--compl-500')
-  box.appendChild(row)
 }
 
 function applyToLorem(){
@@ -149,27 +118,26 @@ function generate(){
   const [r,g,b]=hexToRgb(hex);
   const [h,s,l]=rgbToHsl(r,g,b);
   const vars = generateSchemes(h,s,l);
-  const compl=genComplement(h,s,l,180)
-  updateVars(vars,compl)
-  renderPalette(vars,compl[0])
-  listVars(vars,compl)
+  updateVars(vars)
+  renderPalette(vars)
+  listVars(vars)
   applyToLorem()
 }
 
 function generateSchemes(h, s, l) {
   const defs = {
     'main': 0,
-    'compl': 180,
     'main+adj': 30,
-    'main-adj': -30,
-    'compl+adj': 210,  // 180+30
-    'compl-adj': 150,  // 180-30
-    'main+triad': 60,
-    'main-triad': -60,
     'main+rect': 60,
-    'main-rect': -60,
+    'main+triad': 120,
+    'compl-rect': 120,  // 180-60
+    'compl-adj': 150,  // 180-30
+    'compl': 180,
+    'compl+adj': 210,  // 180+30
     'compl+rect': 240, // 180+60
-    'compl-rect': 120  // 180-60
+    'main-triad': -120, // 360-120 = 240
+    'main-rect': -60, // 360-60 = 300
+    'main-adj': -30, // 360-30 = 330
   };
   const vars = {};
   for (const k in defs) {
