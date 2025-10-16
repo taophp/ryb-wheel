@@ -1,0 +1,24 @@
+:root {
+  --main-50: hsl(from var(--main) h s calc(l * 0.1));
+  --main-100: hsl(from var(--main) h s calc(l * 0.2));
+  --main-200: hsl(from var(--main) h s calc(l * 0.4));
+  --main-300: hsl(from var(--main) h s calc(l * 0.6));
+  --main-400: hsl(from var(--main) h s calc(l * 0.8));
+  --main-500: var(--main);
+  --main-600: color-mix(in hsl, var(--main), white 20%);
+  --main-700: color-mix(in hsl, var(--main-600), white 20%);
+  --main-800: color-mix(in hsl, var(--main-700), white 20%);
+  --main-900: color-mix(in hsl, var(--main-800), white 20%);
+  --main-950: color-mix(in hsl, var(--main-900), white 10%);
+  --compl-50: hsl(from var(--compl) h s calc(l * 0.1));
+  --compl-100: hsl(from var(--compl) h s calc(l * 0.2));
+  --compl-200: hsl(from var(--compl) h s calc(l * 0.4));
+  --compl-300: hsl(from var(--compl) h s calc(l * 0.6));
+  --compl-400: hsl(from var(--compl) h s calc(l * 0.8));
+  --compl-500: var(--compl);
+  --compl-600: color-mix(in hsl, var(--compl), white 20%);
+  --compl-700: color-mix(in hsl, var(--compl-600), white 20%);
+  --compl-800: color-mix(in hsl, var(--compl-700), white 20%);
+  --compl-900: color-mix(in hsl, var(--compl-800), white 20%);
+  --compl-950: color-mix(in hsl, var(--compl-900), white 10%);
+}

@@ -60,6 +60,13 @@ ryb-wheel/
 
 ---
 
+## Inspiration
+
+- [Color Wheel Free](https://www.colorwheelfree.com/)
+- [Paletton](https://paletton.com)
+
+---
+
 ## Credit
 Prototype and code: Stéphane Mourey
 Writing assistance and technical adaptation: GPT-5 Thinking mini (AI assistant)
