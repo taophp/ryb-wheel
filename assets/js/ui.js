@@ -80,6 +80,7 @@ function syncHex(hex){
 
 function updateMainColor(hex){
   document.documentElement.style.setProperty('--main', hex);
+  generate();
 }
 
 const hInp=document.getElementById('h');

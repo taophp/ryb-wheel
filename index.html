@@ -14,7 +14,6 @@
     <script defer src="assets/js/ui.js"></script>
   </head>
   <body>
-    <header>
       <h1 id="t-title">🎨 RYB Palette</h1>
       <p id="t-sub">
         Generating painter-style color palettes using the RYB color wheel.
@@ -25,10 +24,10 @@
         <button data-lang="fr">FR</button>
       </div>
 
+      <div style="display:grid;grid-template-columns:auto 1fr;gap:1rem">
       <div class="controls">
-        <label id="t-color-label"
-          >Color:
           <div id="colorUI">
+            <h2>Main color</h2>
             <div class="picker-row">
               <label for="colorHex">#</label>
               <input type="text" id="colorHex" value="#1e90ff" maxlength="7" />
@@ -99,13 +98,99 @@
               </div>
             </div>
           </div>
-        </label>
 
-        <button id="gen" data-text="generate">Generate</button>
+
       </div>
-    </header>
+      <div class="palette">
+        <h2>Palette générée</h2>
 
-    <main>
+        <div class="grid">
+          <div class="main swatch">main</div>
+          <div class="main-adj swatch">main-adj</div>
+          <div class="main-plus-adj swatch">main+adj</div>
+
+          <div class="main-rect swatch">main-rect</div>
+          <div class="main-plus-rect swatch">main+rect</div>
+
+          <div class="compl-plus-rect swatch">compl+rect<br>main-triad</div>
+          <div class="main-plus-triad swatch">main+triad<br>compl-rect</div>
+
+          <div class="compl-plus-adj swatch">compl+adj</div>
+          <div class="compl-adj swatch">compl-adj</div>
+
+          <div class="compl swatch">compl</div>
+        </div>
+
+        <style>
+          .grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0;
+          }
+          .main {
+            background: var(--main);
+            color: var(--compl);
+            grid-column: 3;
+          }
+          .main-adj {
+            background: var(--main-adj);
+            color: var(--compl-adj);
+            grid-column: 2;
+          }
+          .main-plus-adj {
+            background: var(--main\+adj);
+            color: var(--main-triad);
+            grid-column: 4;
+          }
+          .main-rect {
+            background: var(--main-rect);
+            color: var(--main\+rect);
+            grid-column: 1;
+          }
+          .main-plus-rect {
+            background: var(--main\+rect);
+            color: var(--main-rect);
+            grid-column: 5;
+          }
+          .compl-plus-rect {
+            background: var(--compl\+rect);
+            color: var(--main\+adj);
+            grid-column: 1;
+          }
+          .main-plus-triad {
+            background: var(--main\+triad);
+            color: var(--main-adj);
+            grid-column: 5;
+          }
+          .compl-plus-adj {
+            background: var(--compl\+adj);
+            color: var(--main\+adj);
+            grid-column: 2;
+          }
+          .compl-adj {
+            background: var(--compl-adj);
+            color: var(--main-adj);
+            grid-column: 4;
+          }
+          .compl {
+            background: var(--compl);
+            color: var(--main);
+            grid-column: 3;
+          }
+        </style>
+
+
+        <div class="palette-grid">
+          <div>
+            <h3>Couleur principale</h3>
+            <div id="mainPalette" class="swatches"></div>
+            <div id="newPalette"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
       <section class="preview">
         <h2>Exemple typographique</h2>
         <article id="lorem">
@@ -121,93 +206,11 @@
         </article>
       </section>
 
-      <section class="palette">
-        <h2>Palette générée</h2>
-
-        <table cellspacing="0" border="0">
-          <tr>
-            <td><br /></td>
-            <td><br /></td>
-            <td><br /></td>
-            <td style="background: var(--main)">main</td>
-            <td><br /></td>
-            <td><br /></td>
-            <td><br /></td>
-          </tr>
-          <tr>
-            <td><br /></td>
-            <td><br /></td>
-            <td style="background: var(--main-adj)">main-adj</td>
-            <td><br /></td>
-            <td style="background: var(--main\+ adj)">main+adj</td>
-            <td><br /></td>
-            <td><br /></td>
-          </tr>
-          <tr>
-            <td><br /></td>
-            <td><br /></td>
-            <td><br /></td>
-            <td><br /></td>
-            <td><br /></td>
-            <td><br /></td>
-            <td><br /></td>
-          </tr>
-          <tr>
-            <td style="background: var(--main-rect)">main-rect</td>
-            <td><br /></td>
-            <td><br /></td>
-            <td><br /></td>
-            <td><br /></td>
-            <td><br /></td>
-            <td style="background: var(--main\+ rect)">main+rect</td>
-          </tr>
-          <tr>
-            <td><br /></td>
-            <td style="background: var(--compl\+ rect)">
-              compl+rect main-triad
-            </td>
-            <td><br /></td>
-            <td><br /></td>
-            <td><br /></td>
-            <td style="background: var(--main\+ triad)">
-              main+triad compl-rect
-            </td>
-            <td><br /></td>
-          </tr>
-          <tr>
-            <td><br /></td>
-            <td><br /></td>
-            <td style="background: var(--compl\+ adj)">compl+adj</td>
-            <td><br /></td>
-            <td style="background: var(--compl-adj)">compl-adj</td>
-            <td><br /></td>
-            <td><br /></td>
-          </tr>
-          <tr>
-            <td><br /></td>
-            <td><br /></td>
-            <td><br /></td>
-            <td style="background: var(--compl)">compl</td>
-            <td><br /></td>
-            <td><br /></td>
-            <td><br /></td>
-          </tr>
-        </table>
-
-        <div class="palette-grid">
-          <div>
-            <h3>Couleur principale</h3>
-            <div id="mainPalette" class="swatches"></div>
-            <div id="newPalette"></div>
-          </div>
-        </div>
-      </section>
-
       <section class="vars">
         <h2>Variables CSS</h2>
         <div id="varList"></div>
       </section>
-    </main>
+    </div>
 
     <footer>
       <p>
