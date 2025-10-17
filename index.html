@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="assets/css/colorpicker.css" />
     <link rel="stylesheet" href="assets/css/ui.css" />
     <link rel="stylesheet" href="assets/css/colorvars.css" />
+    <link rel="stylesheet" href="assets/css/dyncolors.css" />
     <script defer src="assets/js/main.js"></script>
     <script defer src="assets/js/i18n.js"></script>
     <script defer src="assets/js/colorpicker.js"></script>
@@ -191,7 +192,8 @@
       </div>
     </div>
 
-    <div>
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr)">
+        <div>
       <div class="swatch" style="background: var(--main-50)">--main-50</div>
       <div class="swatch" style="background: var(--main-100)">--main-100</div>
       <div class="swatch" style="background: var(--main-200)">--main-200</div>
@@ -203,6 +205,19 @@
       <div class="swatch" style="background: var(--main-800)">--main-800</div>
       <div class="swatch" style="background: var(--main-900)">--main-900</div>
       <div class="swatch" style="background: var(--main-950)">--main-950</div>
+        </div><div>
+      <div class="swatch" style="background: var(--compl-50)">--compl-50</div>
+      <div class="swatch" style="background: var(--compl-100)">--compl-100</div>
+      <div class="swatch" style="background: var(--compl-200)">--compl-200</div>
+      <div class="swatch" style="background: var(--compl-300)">--compl-300</div>
+      <div class="swatch" style="background: var(--compl-400)">--compl-400</div>
+      <div class="swatch" style="background: var(--compl-500)">--compl-500</div>
+      <div class="swatch" style="background: var(--compl-600)">--compl-600</div>
+      <div class="swatch" style="background: var(--compl-700)">--compl-700</div>
+      <div class="swatch" style="background: var(--compl-800)">--compl-800</div>
+      <div class="swatch" style="background: var(--compl-900)">--compl-900</div>
+      <div class="swatch" style="background: var(--compl-950)">--compl-950</div>
+        </div>
     </div>
 
     <div>
@@ -226,12 +241,3 @@
         <div id="varList"></div>
       </section>
     </div>
-
-    <footer>
-      <p>
-        Implémentation JS de l’algorithme <em>spin_ryb</em> inspiré de l’article
-        original de Stéphane Mourey. | MIT License
-      </p>
-    </footer>
-  </body>
-</html>
