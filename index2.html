@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>RYB Palette – Démo interactive</title>
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/i18n.css" />
+    <link rel="stylesheet" href="assets/css/colorpicker.css" />
+    <link rel="stylesheet" href="assets/css/ui.css" />
+    <link rel="stylesheet" href="assets/css/colorvars.css" />
+    <script defer src="assets/js/main.js"></script>
+    <script defer src="assets/js/i18n.js"></script>
+    <script defer src="assets/js/colorpicker.js"></script>
+    <script defer src="assets/js/ui.js"></script>
+  </head>
+  <body>
+    <script>
+    function printSwatch(colorName,text) {
+      const script = document.currentScript;
+      script.insertAdjacentHTML('beforebegin', `<div class="swatch" style="background: var(--${colorName})">${text}</div>`);
+      script.remove();
+    }
+    </script>
+    <script>
+    printSwatch("main-50","main-50");
+    </script>
+      <h1 id="t-title">🎨 RYB Palette</h1>
+      <p id="t-sub">
+        Generating painter-style color palettes using the RYB color wheel.
+      </p>
+
+      <div class="lang-switch">
+        <button data-lang="en">EN</button>
+        <button data-lang="fr">FR</button>
+      </div>
+
+      <div style="display:grid;grid-template-columns:auto 1fr;gap:1rem">
+      <div class="controls">
+          <div id="colorUI">
+            <h2>Main color</h2>
+            <div class="picker-row">
+              <label for="colorHex">#</label>
+              <input type="text" id="colorHex" value="#1e90ff" maxlength="7" />
+              <input type="color" id="colorNative" value="#1e90ff" />
+            </div>
+
+            <canvas id="rybWheel" width="256" height="256"></canvas>
+
+            <div class="picker-block">
+              <h4>HSL</h4>
+              <div class="picker-slider">
+                <label>H</label
+                ><input type="range" id="h" min="0" max="360" /><input
+                  type="number"
+                  id="hVal"
+                  min="0"
+                  max="360"
+                />
+              </div>
+              <div class="picker-slider">
+                <label>S</label
+                ><input type="range" id="s" min="0" max="100" /><input
+                  type="number"
+                  id="sVal"
+                  min="0"
+                  max="100"
+                />
+              </div>
+              <div class="picker-slider">
+                <label>L</label
+                ><input type="range" id="l" min="0" max="100" /><input
+                  type="number"
+                  id="lVal"
+                  min="0"
+                  max="100"
+                />
+              </div>
+            </div>
+
+            <div class="picker-block">
+              <h4>RGB</h4>
+              <div class="picker-slider">
+                <label>R</label
+                ><input type="range" id="r" min="0" max="255" /><input
+                  type="number"
+                  id="rVal"
+                  min="0"
+                  max="255"
+                />
+              </div>
+              <div class="picker-slider">
+                <label>G</label
+                ><input type="range" id="g" min="0" max="255" /><input
+                  type="number"
+                  id="gVal"
+                  min="0"
+                  max="255"
+                />
+              </div>
+              <div class="picker-slider">
+                <label>B</label
+                ><input type="range" id="b" min="0" max="255" /><input
+                  type="number"
+                  id="bVal"
+                  min="0"
+                  max="255"
+                />
+              </div>
+            </div>
+          </div>
+
+
+      </div>
+      <div class="palette">
+        <h2>Palette générée</h2>
+
+        <div class="grid">
+          <div class="main swatch">main</div>
+          <div class="main-adj swatch">main-adj</div>
+          <div class="main-plus-adj swatch">main+adj</div>
+
+          <div class="main-rect swatch">main-rect</div>
+          <div class="main-plus-rect swatch">main+rect</div>
+
+          <div class="compl-plus-rect swatch">compl+rect<br>main-triad</div>
+          <div class="main-plus-triad swatch">main+triad<br>compl-rect</div>
+
+          <div class="compl-plus-adj swatch">compl+adj</div>
+          <div class="compl-adj swatch">compl-adj</div>
+
+          <div class="compl swatch">compl</div>
+        </div>
+
+        <style>
+          .grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 0;
+          }
+          .main {
+            background: var(--main);
+            color: var(--compl);
+            grid-column: 3;
+          }
+          .main-adj {
+            background: var(--main-adj);
+            color: var(--compl-adj);
+            grid-column: 2;
+          }
+          .main-plus-adj {
+            background: var(--main\+adj);
+            color: var(--main-triad);
+            grid-column: 4;
+          }
+          .main-rect {
+            background: var(--main-rect);
+            color: var(--main\+rect);
+            grid-column: 1;
+          }
+          .main-plus-rect {
+            background: var(--main\+rect);
+            color: var(--main-rect);
+            grid-column: 5;
+          }
+          .compl-plus-rect {
+            background: var(--compl\+rect);
+            color: var(--main\+adj);
+            grid-column: 1;
+          }
+          .main-plus-triad {
+            background: var(--main\+triad);
+            color: var(--main-adj);
+            grid-column: 5;
+          }
+          .compl-plus-adj {
+            background: var(--compl\+adj);
+            color: var(--main\+adj);
+            grid-column: 2;
+          }
+          .compl-adj {
+            background: var(--compl-adj);
+            color: var(--main-adj);
+            grid-column: 4;
+          }
+          .compl {
+            background: var(--compl);
+            color: var(--main);
+            grid-column: 3;
+          }
+        </style>
+
+
+        <div class="palette-grid">
+          <div>
+            <h3>Couleur principale</h3>
+            <div id="mainPalette" class="swatches"></div>
+            <div id="newPalette"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <script>
+      printSwatch("class","text");
+      </script>
+      <div class="swatch" style="background: var(--main-50)">--main-50</div>
+      <div class="swatch" style="background: var(--main-100)">--main-100</div>
+      <div class="swatch" style="background: var(--main-200)">--main-200</div>
+      <div class="swatch" style="background: var(--main-300)">--main-300</div>
+      <div class="swatch" style="background: var(--main-400)">--main-400</div>
+      <div class="swatch" style="background: var(--main-500)">--main-500</div>
+      <div class="swatch" style="background: var(--main-600)">--main-600</div>
+      <div class="swatch" style="background: var(--main-700)">--main-700</div>
+      <div class="swatch" style="background: var(--main-800)">--main-800</div>
+      <div class="swatch" style="background: var(--main-900)">--main-900</div>
+      <div class="swatch" style="background: var(--main-950)">--main-950</div>
+    </div>
+
+    <div>
+      <section class="preview">
+        <h2>Exemple typographique</h2>
+        <article id="lorem">
+          <h3>Titre d’exemple</h3>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
+            accumsan, est non interdum cursus, arcu nisi luctus elit.
+          </p>
+          <p style="font-size: 0.9rem; color: #444">
+            Les variables CSS produites sont utilisées pour colorer le texte et
+            les fonds dans cet exemple.
+          </p>
+        </article>
+      </section>
+
+      <section class="vars">
+        <h2>Variables CSS</h2>
+        <div id="varList"></div>
+      </section>
+    </div>
+
+    <footer>
+      <p>
+        Implémentation JS de l’algorithme <em>spin_ryb</em> inspiré de l’article
+        original de Stéphane Mourey. | MIT License
+      </p>
+    </footer>
+  </body>
+</html>
